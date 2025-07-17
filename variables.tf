@@ -5,4 +5,3 @@ variable "region" {
 variable "cluster_name" {
   default = "my-sample-eks"
 }
-
