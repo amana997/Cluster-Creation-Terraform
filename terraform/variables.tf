@@ -12,5 +12,5 @@ variable "instance_type" {
 
 variable "ami_id" {
   description = "Amazon Linux 2 AMI"
-  default     = "ami-0c2b8ca1dad447f8a" # Update based on region
+  default     = "ami-0a1235697f4afa8a4" # Update based on region
 }
