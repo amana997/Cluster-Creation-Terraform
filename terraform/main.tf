@@ -18,7 +18,7 @@ module "eks" {
   version = "20.8.4"
 
   cluster_name    = var.cluster_name
-  cluster_version = "1.33"
+  cluster_version = "1.31"
   
   cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
@@ -28,7 +28,7 @@ module "eks" {
   enable_irsa        = true
 
   eks_managed_node_groups = {
-    default = {
+    dev = {
       instance_types = [var.node_instance_type]
       desired_size   = var.desired_capacity
       min_size       = 1
