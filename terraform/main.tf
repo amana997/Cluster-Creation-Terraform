@@ -47,4 +47,38 @@ module "eks" {
     Environment = "dev"
     Terraform   = "true"
   }
+  enable_cluster_creator_admin_permissions = true
+
+  access_entries = {
+    Admins1 = {
+      kubernetes_groups = []
+      principal_arn     = "arn:aws:iam::863379711167:user/aman"
+
+      policy_associations = {
+        cluster_admin = {
+          policy_name    = "AmazonEKSAdminPolicy"
+          access_scope  = "Cluster"
+        },
+        {
+          policy_name    = "AmazonEKSClusterAdminPolicy"
+          access_scope  = "Cluster"
+        }
+      }
+    }
+    Admins2 = {
+      kubernetes_groups = []
+      principal_arn     = "arn:aws:iam::863379711167:role/aws-reserved/sso.amazonaws.com/ap-south-1/AWSReservedSSO_AdministratorAccess_001b76da22c136b4"
+
+      policy_associations = {
+        cluster_admin = {
+          policy_name    = "AmazonEKSAdminPolicy"
+          access_scope  = "Cluster"
+        },
+        {
+          policy_name    = "AmazonEKSClusterAdminPolicy"
+          access_scope  = "Cluster"
+        }
+      }
+    }
+  }
 }
