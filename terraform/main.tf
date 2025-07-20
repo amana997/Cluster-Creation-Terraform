@@ -56,12 +56,8 @@ module "eks" {
 
       policy_associations = {
         cluster_admin = {
-          policy_name    = "AmazonEKSAdminPolicy"
-          access_scope  = "Cluster"
-        },
-        {
-          policy_name    = "AmazonEKSClusterAdminPolicy"
-          access_scope  = "Cluster"
+          policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
+          access_scope   = { type = "cluster" }
         }
       }
     }
@@ -71,12 +67,8 @@ module "eks" {
 
       policy_associations = {
         cluster_admin = {
-          policy_name    = "AmazonEKSAdminPolicy"
-          access_scope  = "Cluster"
-        },
-        {
-          policy_name    = "AmazonEKSClusterAdminPolicy"
-          access_scope  = "Cluster"
+          policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
+          access_scope   = { type = "cluster" }
         }
       }
     }
