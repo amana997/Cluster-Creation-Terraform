@@ -35,7 +35,7 @@ module "eks" {
   vpc_id             = module.vpc.vpc_id
 
   eks_managed_node_groups = {
-    default = {
+    dev = {
       instance_types = [var.node_instance_type]
       desired_size   = var.desired_capacity
       min_size       = 1
@@ -50,24 +50,13 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   access_entries = {
-    Admins1 = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::863379711167:user/aman"
-
-      policy_associations = {
-        cluster_admin = {
-          policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
-          access_scope   = { type = "cluster" }
-        }
-      }
-    }
-    Admins2 = {
+    Admins = {
       kubernetes_groups = []
       principal_arn     = "arn:aws:iam::863379711167:role/aws-reserved/sso.amazonaws.com/ap-south-1/AWSReservedSSO_AdministratorAccess_001b76da22c136b4"
 
       policy_associations = {
-        cluster_admin = {
-          policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
+        Cluster_Admins = {
+          policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope   = { type = "cluster" }
         }
       }
