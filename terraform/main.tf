@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.1.0"
+  version = "5.1.2"
 
   name = "eks-vpc"
   cidr = "10.0.0.0/16"
@@ -11,11 +11,19 @@ module "vpc" {
 
   enable_dns_hostnames = true
   enable_dns_support   = true
+
+  enable_nat_gateway = true
+  single_nat_gateway = true
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
 }
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.8.4"
+  version = "20.8.5"
 
   cluster_name    = var.cluster_name
   cluster_version = "1.31"
@@ -25,14 +33,18 @@ module "eks" {
 
   subnet_ids         = module.vpc.private_subnets
   vpc_id             = module.vpc.vpc_id
-  enable_irsa        = true
 
   eks_managed_node_groups = {
-    dev = {
+    default = {
       instance_types = [var.node_instance_type]
       desired_size   = var.desired_capacity
       min_size       = 1
       max_size       = 3
     }
+  }
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
   }
 }
