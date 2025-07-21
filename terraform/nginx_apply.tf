@@ -1,10 +1,26 @@
-resource "null_resource" "apply_nginx_yaml" {
+resource "null_resource" "apply_config" {
   provisioner "local-exec" {
-    command = "kubectl apply -f ${path.module}/nginx-deployment.yaml"
+    command = "aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster"
+  }
+  provisioner "local-exec" {
+    command = "kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml"
+  }
+  provisioner "local-exec" {
+    command = "kubectl get svc"
+  }
+  provisioner "local-exec" {
+    command = "kp"
+  }
+  provisioner "local-exec" {
+    command = "kn"
+  }
+  provisioner "local-exec" {
+    when    = destroy
+    command = "kubectl delete -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml"
   }
 
   # Update this with your actual EKS cluster resource name
   depends_on = [
-    module.eks.cluster_name
+    module.eks.eks_managed_node_groups
   ]
 }
