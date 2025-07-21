@@ -64,12 +64,10 @@ module "eks" {
   }
 }
 
-data "aws_eks_cluster_auth" "my_cluster" {
-  name = aws_eks_cluster.my_cluster.name
-}
+resource "null_resource" "apply_nginx_yaml" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml"
+  }
 
-provider "kubernetes" {
-  host                   = aws_eks_cluster.my_cluster.endpoint
-  cluster_ca_certificate = base64decode(aws_eks_cluster.my_cluster.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.my_cluster.token
+  depends_on = module.eks.cluster_name
 }
