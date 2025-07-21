@@ -63,11 +63,3 @@ module "eks" {
     }
   }
 }
-
-resource "null_resource" "apply_nginx_yaml" {
-  provisioner "local-exec" {
-    command = "kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml"
-  }
-
-  depends_on = module.eks.cluster_name
-}

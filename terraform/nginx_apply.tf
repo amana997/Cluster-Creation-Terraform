@@ -5,6 +5,6 @@ resource "null_resource" "apply_nginx_yaml" {
 
   # Update this with your actual EKS cluster resource name
   depends_on = [
-    aws_eks_cluster.eks_cluster
+    module.eks.cluster_name
   ]
 }
