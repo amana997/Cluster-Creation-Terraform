@@ -9,10 +9,10 @@ resource "null_resource" "apply_config" {
     command = "kubectl get svc"
   }
   provisioner "local-exec" {
-    command = "kp"
+    command = "kubectl get pods -A"
   }
   provisioner "local-exec" {
-    command = "kn"
+    command = "kubectl get nodes"
   }
   provisioner "local-exec" {
     when    = destroy
