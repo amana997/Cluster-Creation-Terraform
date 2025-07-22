@@ -15,7 +15,7 @@ resource "null_resource" "apply_config" {
     when    = create
     command = <<EOT
       sleep 10
-      kubectl get svc
+      kubectl get svc | grep ".com" | awk '{print $4}' > /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/elb_dns.txt
     EOT
   }
   provisioner "local-exec" {
@@ -27,4 +27,9 @@ resource "null_resource" "apply_config" {
   depends_on = [
     module.eks.eks_managed_node_groups
   ]
+}
+
+data "local_file" "elb_dns" {
+  filename = "/Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/elb_dns.txt"
+  depends_on = [null_resource.apply_config]
 }
