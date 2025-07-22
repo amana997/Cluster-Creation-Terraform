@@ -12,7 +12,7 @@ resource "null_resource" "apply_config" {
     command = "kubectl get pods -A"
   }
   provisioner "local-exec" {
-    when    = apply
+    when    = create
     command = <<EOT
       sleep 10
       kubectl get svc
