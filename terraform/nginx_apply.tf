@@ -1,21 +1,16 @@
 resource "null_resource" "apply_config" {
   provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster"
-  }
-  provisioner "local-exec" {
-    command = "kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml"
-  }
-  provisioner "local-exec" {
-    command = "kubectl get nodes"
-  }
-  provisioner "local-exec" {
-    command = "kubectl get pods -A"
-  }
-  provisioner "local-exec" {
     when    = create
     command = <<EOT
+      aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
       sleep 10
-      kubectl get svc | grep ".com" | awk '{print $4}' | tr -d '\n' > /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/elb_dns.txt
+      kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml
+      sleep 10
+      kubectl get nodes
+      sleep 10
+      kubectl get pods -A
+      sleep 10
+      open "http://$(kubectl get svc | grep ".com" | awk '{print $4}' | tr -d '\n')"
     EOT
   }
   provisioner "local-exec" {
@@ -27,9 +22,4 @@ resource "null_resource" "apply_config" {
   depends_on = [
     module.eks.eks_managed_node_groups
   ]
-}
-
-data "local_file" "elb_dns" {
-  filename = "/Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/elb_dns.txt"
-  depends_on = [null_resource.apply_config]
 }
