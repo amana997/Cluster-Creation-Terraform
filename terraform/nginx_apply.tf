@@ -15,7 +15,7 @@ resource "null_resource" "apply_config" {
     when    = create
     command = <<EOT
       sleep 10
-      kubectl get svc | grep ".com" | awk '{print $4}' > /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/elb_dns.txt
+      kubectl get svc | grep ".com" | awk '{print $4}' | tr -d '\n' > /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/elb_dns.txt
     EOT
   }
   provisioner "local-exec" {
