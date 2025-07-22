@@ -20,10 +20,7 @@ resource "null_resource" "apply_config" {
   }
   provisioner "local-exec" {
     when    = destroy
-    command = <<EOT
-      kubectl delete -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml
-      sleep 20
-    EOT
+    command = "kubectl delete -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml"
   }
 
   # Update this with your actual EKS cluster resource name
