@@ -6,13 +6,13 @@ resource "null_resource" "apply_config" {
     command = "kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx-deployment.yaml"
   }
   provisioner "local-exec" {
-    command = "kubectl get svc"
+    command = "kubectl get nodes"
   }
   provisioner "local-exec" {
     command = "kubectl get pods -A"
   }
   provisioner "local-exec" {
-    command = "kubectl get nodes"
+    command = "kubectl get svc"
   }
   provisioner "local-exec" {
     when    = destroy
