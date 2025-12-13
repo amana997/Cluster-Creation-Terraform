@@ -49,17 +49,5 @@ module "eks" {
   }
   enable_cluster_creator_admin_permissions = true
 
-  access_entries = {
-    Admins = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::863379711167:role/aws-reserved/sso.amazonaws.com/ap-south-1/AWSReservedSSO_AdministratorAccess_001b76da22c136b4"
-
-      policy_associations = {
-        Cluster_Admins = {
-          policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-          access_scope   = { type = "cluster" }
-        }
-      }
-    }
-  }
+  
 }
