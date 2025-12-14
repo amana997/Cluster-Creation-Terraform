@@ -47,7 +47,17 @@ module "eks" {
     Environment = "dev"
     Terraform   = "true"
   }
-  enable_cluster_creator_admin_permissions = true
+  enable_cluster_creator_admin_permissions = true 
+}
 
-  
+############################
+# Kubernetes Namespace
+############################
+
+resource "kubernetes_namespace" "world" {
+  depends_on = [module.eks]
+
+  metadata {
+    name = "world"
+  }
 }
