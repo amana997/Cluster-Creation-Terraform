@@ -4,7 +4,7 @@ resource "null_resource" "apply_config" {
     command = <<EOT
       aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
       sleep 10
-      kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/ecommerce-deployment.yaml
+      kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx/ecommerce-deployment.yaml
       sleep 10
       kubectl get nodes
       sleep 10
@@ -16,14 +16,13 @@ resource "null_resource" "apply_config" {
   provisioner "local-exec" {
     when    = destroy
     command = <<EOT
-      kubectl delete -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/ecommerce-deployment.yaml
+      kubectl delete -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx/ecommerce-deployment.yaml
       sleep 10
     EOT
   }
 
   # Update this with your actual EKS cluster resource name
   depends_on = [
-    module.eks,
-    kubernetes_namespace.world
+    kubernetes_namespace.ecom
   ]
 }
