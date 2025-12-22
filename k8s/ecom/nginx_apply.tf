@@ -4,19 +4,19 @@ resource "null_resource" "apply_config" {
     command = <<EOT
       aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
       sleep 10
-      kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx/ecommerce-deployment.yaml
+      kubectl apply -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/ecom/ecommerce-deployment.yaml
       sleep 10
       kubectl get nodes
       sleep 10
       kubectl get pods -A
       sleep 10
-      open "http://$(kubectl get svc | grep ".com" | awk '{print $4}' | tr -d '\n')"
+      open "http://$(kubectl get svc -n ecommerce | grep ".com" | awk '{print $4}' | tr -d '\n')"
     EOT
   }
   provisioner "local-exec" {
     when    = destroy
     command = <<EOT
-      kubectl delete -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/nginx/ecommerce-deployment.yaml
+      kubectl delete -f /Users/aman/Documents/Git/Cluster-Creation-Terraform/k8s/ecom/ecommerce-deployment.yaml
       sleep 10
     EOT
   }

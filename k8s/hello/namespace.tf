@@ -2,8 +2,8 @@
 # Kubernetes Namespace
 ############################
 
-resource "kubernetes_namespace" "world" {
+resource "kubernetes_namespace" "hello" {
   metadata {
-    name = "world"
+    name = "hello"
   }
 }

@@ -4,6 +4,6 @@
 
 resource "kubernetes_namespace" "ecom" {
   metadata {
-    name = "ecom"
+    name = "ecommerce"
   }
 }

@@ -10,7 +10,7 @@ resource "null_resource" "apply_config" {
       sleep 10
       kubectl get pods -A
       sleep 10
-      open "http://$(kubectl get svc -n world | grep ".com" | awk '{print $4}' | tr -d '\n')"
+      open "http://$(kubectl get svc -n hello | grep ".com" | awk '{print $4}' | tr -d '\n')"
     EOT
   }
   provisioner "local-exec" {
@@ -23,6 +23,6 @@ resource "null_resource" "apply_config" {
 
   # Update this with your actual EKS cluster resource name
   depends_on = [
-    kubernetes_namespace.world
+    kubernetes_namespace.hello
   ]
 }
