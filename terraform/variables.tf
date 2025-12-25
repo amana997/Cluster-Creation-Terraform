@@ -11,5 +11,5 @@ variable "node_instance_type" {
 }
 
 variable "desired_capacity" {
-  default = 2
+  default = 1
 }

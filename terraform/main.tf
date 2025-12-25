@@ -39,7 +39,7 @@ module "eks" {
       instance_types = [var.node_instance_type]
       desired_size   = var.desired_capacity
       min_size       = 1
-      max_size       = 3
+      max_size       = 2
     }
   }
 
