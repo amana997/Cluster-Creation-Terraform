@@ -10,7 +10,7 @@ resource "null_resource" "apply_config" {
       sleep 10
       kubectl get pods -A
       sleep 10
-      open "http://$(kubectl get svc -n ecommerce | grep ".com" | awk '{print $4}' | tr -d '\n')"
+      open "http://$(kubectl get svc -n ecommerce | grep "aws.com" | awk '{print $4}' | tr -d '\n')"
     EOT
   }
   provisioner "local-exec" {
