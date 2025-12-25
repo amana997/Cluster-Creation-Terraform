@@ -4,7 +4,7 @@ resource "null_resource" "apply_config" {
     command = <<EOT
       aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
       sleep 10
-      kubectl apply -n ecommerce -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/main/release/kubernetes-manifests.yaml
+      kubectl apply -n ecommerce -f kubernetes-manifests.yaml
       sleep 10
       kubectl get nodes
       sleep 10
@@ -16,7 +16,7 @@ resource "null_resource" "apply_config" {
   provisioner "local-exec" {
     when    = destroy
     command = <<EOT
-      kubectl delete -n ecommerce -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/main/release/kubernetes-manifests.yaml
+      kubectl delete -n ecommerce -f kubernetes-manifests.yaml
       sleep 10
     EOT
   }
